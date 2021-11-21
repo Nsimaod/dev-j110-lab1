@@ -9,7 +9,7 @@ public class Book {
     }
 
     public void setName(String name) throws IllegalArgumentException {
-        if (name == null) {
+        if (name == null || name.equals("")) {
             throw new IllegalArgumentException();
         }
         this.name = name;
@@ -20,7 +20,7 @@ public class Book {
     }
 
     public void setYear(int year) throws IllegalArgumentException {
-        if (year <= 0) {
+        if (year <= 0 || year>2099) {
             throw new IllegalArgumentException();
         }
         this.year = year;
@@ -31,14 +31,14 @@ public class Book {
     }
 
     public void setAuthors(String[] authors) throws IllegalArgumentException {
-        for (String s : authors) {
-            if (s == null) {
+        if(authors==null)
+        {
+            throw new IllegalArgumentException();
+        }
+        for (String s : authors)
+        {
+            if (s == null || s.equals("")) {
                 throw new NullPointerException();
-            }
-            for (String author : authors) {
-                if (author == null) {
-                    throw new IllegalArgumentException();
-                }
             }
         }
         this.authors = authors;
@@ -62,48 +62,55 @@ public class Book {
 
     public String getSpecificAuthor(int pos) throws IllegalArgumentException
     {
+        if(pos>=authors.length || pos<0)
+        {
+            throw new IllegalArgumentException();
+        }
         if (authors[pos] == null) {
             throw new IllegalArgumentException();
         }
         return authors[pos];
     }
 
-    public Book(String name, int year, Publisher publishedBy) throws IllegalArgumentException
+    public void setAuthor(String author)
     {
-        if (name == null || year <= 0 || publishedBy == null) {
+        if(author==null || author.equals(""))
+        {
             throw new IllegalArgumentException();
         }
-        this.name = name;
-        this.year = year;
-        this.publishedBy = publishedBy;
+        if(this.authors==null) {
+            this.authors = new String[1];
+            this.authors[0] = author;
+        }
+        else
+        {
+            String[] newAuthors=new String[authors.length+1];
+            for(int i=0;i<authors.length;i++)
+            {
+                newAuthors[i]=authors[i];
+            }
+            newAuthors[authors.length]=author;
+            authors=newAuthors;
+        }
+    }
+
+    public Book(String name, int year, Publisher publishedBy) throws IllegalArgumentException
+    {
+        setName(name);
+        setYear(year);
+        setPublishedBy(publishedBy);
     }
 
     public Book(String name, String author, int year, Publisher publishedBy) throws IllegalArgumentException
     {
-        if (name == null || year <= 0 || publishedBy == null || author == null) {
-            throw new IllegalArgumentException();
-        }
-        this.name = name;
-        this.year = year;
-        this.publishedBy = publishedBy;
-        this.authors = new String[1];
-        this.authors[0] = author;
+        this(name, year, publishedBy);
+        setAuthor(author);
     }
 
     public Book(String name, String[] authors, int year, Publisher publishedBy) throws IllegalArgumentException, NullPointerException
     {
-        if (name == null || year <= 0 || publishedBy == null || authors == null) {
-            throw new IllegalArgumentException();
-        }
-        for (String a : authors) {
-            if (a == null) {
-                throw new NullPointerException();
-            }
-        }
-        this.authors = authors;
-        this.name = name;
-        this.year = year;
-        this.publishedBy = publishedBy;
+        this(name, year, publishedBy);
+        setAuthors(authors);
     }
 
     public static void print(Book book)

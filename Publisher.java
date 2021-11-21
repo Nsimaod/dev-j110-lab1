@@ -1,6 +1,7 @@
 public class Publisher
 {
     private String name;
+    private String city;
 
     public String getName() {
         return name;
@@ -8,7 +9,7 @@ public class Publisher
 
     public void setName(String name) throws IllegalArgumentException
     {
-        if(name==null)
+        if(name==null || name.equals(""))
         {
             throw new IllegalArgumentException();
         }
@@ -21,22 +22,17 @@ public class Publisher
 
     public void setCity(String city) throws IllegalArgumentException
     {
-        if(city==null)
+        if(city==null || city.equals(""))
         {
             throw new IllegalArgumentException();
         }
         this.city = city;
     }
 
-    private String city;
 
     public Publisher(String name, String city) throws IllegalArgumentException
     {
-        if(name==null || city==null)
-        {
-            throw new IllegalArgumentException();
-        }
-        this.name = name;
-        this.city = city;
+        setName(name);
+        setCity(city);
     }
 }

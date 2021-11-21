@@ -7,27 +7,25 @@ public class Country {
     private String capitalName;
     private double capitalPopulation;
 
-    public Country(String name, double square, double population, String capitalName, double capitalPopulation)
-    {
-        this.name = name;
-        this.square = square;
-        this.population = population;
-        this.capitalName = capitalName;
-        this.capitalPopulation = capitalPopulation;
-    }
-
     public Country(String name, double square, double population)
     {
-        this.name = name;
-        this.square = square;
-        this.population = population;
+        setName(name);
+        setSquare(square);
+        setPopulation(population);
     }
 
     public Country(String name, double square, String capitalName)
     {
-        this.name = name;
-        this.square = square;
-        this.capitalName = capitalName;
+        setName(name);
+        setSquare(square);
+        setCapitalName(capitalName);
+    }
+
+    public Country(String name, double square, double population, String capitalName, double capitalPopulation) throws IllegalArgumentException
+    {
+        this(name, square, population);
+        setCapitalName(capitalName);
+        setCapitalPopulation(capitalPopulation);
     }
 
     public String getName()
@@ -37,7 +35,7 @@ public class Country {
 
     public void setName (String name) throws IllegalArgumentException
     {
-        if(name==null)
+        if(name==null || name.equals(""))
         {
             throw new IllegalArgumentException();
         }
@@ -77,7 +75,7 @@ public class Country {
     public void setCapitalName(String capitalName) throws IllegalArgumentException
     {
         {
-            if(capitalName==null)
+            if(capitalName==null || capitalName.equals(""))
             {
                 throw new IllegalArgumentException();
             }
@@ -105,16 +103,8 @@ public class Country {
 
     public void setCapital(String capName, int capPopulation) throws IllegalArgumentException
     {
-        if(capName==null)
-        {
-            throw new IllegalArgumentException();
-        }
-        if(capPopulation<=0)
-        {
-            throw new IllegalArgumentException();
-        }
-        this.capitalName=capName;
-        this.capitalPopulation=capPopulation;
+        setCapitalName(capName);
+        setCapitalPopulation(capPopulation);
     }
 
     public void print()
