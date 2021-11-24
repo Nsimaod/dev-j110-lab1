@@ -15,6 +15,6 @@ public class Main {
         Book.printAll(books);
         /* Поскольку класс Book хранит ссылку на объект Publisher, при вызове метода print вызывется метод getPublisher,
         который подтягивает актуальный объект Publisher, в поле которого city хранится исправленное название. */
-        // test
+        //
     }
 }
